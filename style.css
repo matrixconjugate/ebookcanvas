@@ -52,7 +52,7 @@ body {
     align-items: center;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: red;
     color: white;
     border: none;
     border-radius: 5px;
@@ -61,7 +61,7 @@ body {
 }
 
 .custom-file-upload:hover {
-    background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 #file-input {
@@ -102,6 +102,7 @@ body {
     padding: 0;
     margin: 0;
     overflow-y: auto;
+    font-size: 13px;
 }
 
 #html-list li {
@@ -127,8 +128,8 @@ body {
 }
 
 #toggle-draw img, #toggle-erase img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
 #toggle-draw {
@@ -136,7 +137,7 @@ body {
 }
 
 #toggle-erase {
-    margin-top: 50px;
+    margin-top: 70px;
 }
 
 #toggle-draw:hover, #toggle-erase:hover {
@@ -158,4 +159,16 @@ canvas {
 /* Eraser cursor */
 .eraser-cursor {
     cursor: none; /* Hide the default cursor */
+}
+
+/* Add this CSS rule to style.css */
+
+#toggle-draw.active, #toggle-erase.active {
+    background-color: #FDD8D1;
+    border-radius: 30px;
+}
+
+#html-list li.active {
+    background-color: #FDD8D1;
+    color: black;
 }

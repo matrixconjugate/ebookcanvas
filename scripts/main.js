@@ -50,6 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleDrawButton.classList.remove('active');
         canvas.style.cursor = eraseMode ? 'crosshair' : 'default';
     });
+
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebarButton = document.getElementById('toggle-sidebar');
+
+    toggleSidebarButton.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
 });
 
 document.querySelector("#toggle-draw").addEventListener("click", function() {
@@ -63,8 +70,8 @@ document.querySelector("#toggle-draw").addEventListener("click", function() {
 document.querySelector("#toggle-erase").addEventListener("click", function() {
     eraseMode = !eraseMode;
     drawingMode = false;
-    toggleEraseButton.classList.toggle('active', eraseMode);
-    document.querySelector("toggle-draw").classList.remove('active');
+    this.classList.toggle('active', eraseMode);
+    document.querySelector("#toggle-draw").classList.remove('active');
     canvas.style.cursor = eraseMode ? 'crosshair' : 'default';
 });
 
@@ -94,6 +101,9 @@ function extractEPUB(file) {
                     htmlFiles.push({ name: zipEntry.name, content });
                     displayHTMLList(htmlFiles);
                     saveHTMLFilesToLocalStorage(htmlFiles);
+                    if (htmlFiles.length === 1) {
+                        loadHTMLToCanvas(content, zipEntry.name);
+                    }
                 });
             }
         });
@@ -102,15 +112,6 @@ function extractEPUB(file) {
     });
 }
 
-function displayHTMLList(htmlFiles) {
-    htmlList.innerHTML = "";
-    htmlFiles.forEach((file, index) => {
-        const li = document.createElement("li");
-        li.textContent = file.name;
-        li.addEventListener("click", () => loadHTMLToCanvas(file.content, file.name));
-        htmlList.appendChild(li);
-    });
-}
 
 function loadHTMLToCanvas(content, fileName) {
     console.log("Loading HTML content");  // Debug log
@@ -184,11 +185,69 @@ function renderHTMLToCanvas(htmlContent) {
         document.body.removeChild(tempDiv);
     });
 }
-document.addEventListener('DOMContentLoaded', () => {
-    const sidebar = document.getElementById('sidebar');
-    const toggleSidebarButton = document.getElementById('toggle-sidebar');
 
-    toggleSidebarButton.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
+function saveHTMLFilesToLocalStorage(htmlFiles) {
+    localStorage.setItem('htmlFiles', JSON.stringify(htmlFiles));
+}
+
+function loadDrawingsFromLocalStorage(fileName) {
+    const drawings = JSON.parse(localStorage.getItem('drawings')) || {};
+    const drawingData = drawings[fileName];
+    if (drawingData) {
+        const img = new Image();
+        img.src = drawingData;
+        img.onload = () => {
+            ctx.drawImage(img, 0, 0);
+        };
+    }
+}
+
+function redrawCanvas() {
+    const drawingData = currentDrawingData();
+    if (drawingData) {
+        const img = new Image();
+        img.src = drawingData;
+        img.onload = () => {
+            ctx.drawImage(img, 0, 0);
+        };
+    }
+}
+
+function currentDrawingData() {
+    return localStorage.getItem(`drawing_${currentHTMLFile}`);
+}
+
+
+function displayHTMLList(htmlFiles) {
+    htmlList.innerHTML = "";
+    htmlFiles.forEach((file, index) => {
+        const li = document.createElement("li");
+        li.textContent = file.name;
+        li.addEventListener("click", () => {
+            loadHTMLToCanvas(file.content, file.name);
+            setActiveListItem(index);
+        });
+        htmlList.appendChild(li);
     });
-});
+}
+
+function setActiveListItem(activeIndex) {
+    const listItems = document.querySelectorAll("#html-list li");
+    listItems.forEach((item, index) => {
+        if (index === activeIndex) {
+            item.classList.add("active");
+        } else {
+            item.classList.remove("active");
+        }
+    });
+}
+
+function loadHTMLFilesFromLocalStorage() {
+    const htmlFiles = JSON.parse(localStorage.getItem('htmlFiles')) || [];
+    if (htmlFiles.length > 0) {
+        displayHTMLList(htmlFiles);
+        loadHTMLToCanvas(htmlFiles[0].content, htmlFiles[0].name);
+        setActiveListItem(0);
+    }
+}
+
