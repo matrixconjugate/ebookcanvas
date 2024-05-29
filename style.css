@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #f8f9fa;
+}
+
+#sidebar {
+    width: 300px;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s;
+}
+
+#sidebar.collapsed {
+    width: 60px;
+}
+
+#sidebar.collapsed #upload-form {
+    display: none;
+}
+
+#toggle-sidebar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#upload-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+#file-input {
+    display: none;
+}
+
+.upload-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+#upload-form button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: not-allowed;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+#upload-form button.enabled {
+    background-color: #28a745;
+    cursor: pointer;
+}
+
+#upload-form button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+#html-list {
+    flex-grow: 1;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+
+#html-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#html-list li:hover {
+    background-color: #495057;
+}
+
+#toggle-draw, #toggle-erase {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    transition: transform 0.3s;
+}
+
+#toggle-draw img, #toggle-erase img {
+    width: 30px;
+    height: 30px;
+}
+
+#toggle-draw {
+    margin-top: 0;
+}
+
+#toggle-erase {
+    margin-top: 50px;
+}
+
+#toggle-draw:hover, #toggle-erase:hover {
+    transform: scale(1.1);
+}
+
+#canvas-container {
+    flex-grow: 1;
+    padding: 20px;
+    overflow: scroll;
+    background-color: #ffffff;
+}
+
+canvas {
+    background-color: #ffffff;
+    cursor: default; /* Default cursor for canvas */
+}
+
+/* Eraser cursor */
+.eraser-cursor {
+    cursor: none; /* Hide the default cursor */
+}

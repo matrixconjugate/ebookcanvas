@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPUB to Canvas Drawing App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div id="sidebar" >
+        <button id="toggle-sidebar">&#9776;</button>
+        <form id="upload-form">
+            <label for="file-input" class="custom-file-upload">
+                <img src="upload.png" alt="Upload Icon" class="upload-icon"> Choose EPUB File
+                <input type="file" id="file-input" accept=".epub">
+            </label>
+            <button type="submit" id="load-button" disabled>Load EPUB</button>
+        </form>
+        <ul id="html-list"></ul>
+    </div>
+    <button id="toggle-draw"><img src="pen.png" alt="Draw Icon"></button>
+    <button id="toggle-erase"><img src="eraser.png" alt="Erase Icon"></button>
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script src="scripts/storage.js" defer></script>
+    <script src="scripts/draw.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+</body>
+</html>
