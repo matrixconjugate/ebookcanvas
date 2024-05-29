@@ -146,14 +146,17 @@ body {
 
 #canvas-container {
     flex-grow: 1;
-    padding: 20px;
+    padding-right: 50px;
+    padding-left: 10px;
+    padding-top: 30px;
     overflow: scroll;
-    background-color: #ffffff;
+    background-color: #FDD8D1;
 }
 
 canvas {
     background-color: #ffffff;
     cursor: default; /* Default cursor for canvas */
+    border-radius: 5px;
 }
 
 /* Eraser cursor */
